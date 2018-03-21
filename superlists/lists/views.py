@@ -1,4 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponse
 
 def home_page(request):
-    return render(request, 'home.html')
+    item = request.POST.get('item_text', '')
+    context = {'new_item_text': item}
+    return render(request, 'home.html', context)
