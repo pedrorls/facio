@@ -39,11 +39,15 @@ DJANGO_APPS = (
     'django.contrib.staticfiles',
 )
 
+THIRD_PART_APPS = (
+    'django_nose',
+)
+
 LOCAL_APPS = (
     'lists',
 )
 
-INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS
+INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRD_PART_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -124,3 +128,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+# Django nose declaration
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+NOSE_ARGS = [
+    '--with-coverage',
+    '--cover-package=lists',
+    '--cover-inclusive',
+]
