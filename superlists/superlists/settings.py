@@ -134,6 +134,9 @@ STATIC_URL = '/static/'
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 NOSE_ARGS = [
     '--with-coverage',
-    '--cover-package=lists',
     '--cover-inclusive',
+    '--cover-erase',
+    '--cover-package=lists',
+    '--verbosity=3',
+    '--rednose',
 ]
