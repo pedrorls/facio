@@ -56,7 +56,7 @@ class NewVisitorTest(LiveServerTestCase):
         inputbox.send_keys(Keys.ENTER)
         self.wait_for_row_in_list_table('1: Buy peacock feathers')
         list_url = self.browser.current_url
-        self.assertRegex(edith_list_url, '/lists/.+')
+        self.assertRegex(list_url, '/lists/.+')
         # ------------------------------------------
         ## quit browser session and open a new on to make sure
         ## that no information of the other list is showed
