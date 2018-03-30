@@ -51,9 +51,12 @@ class NewVisitorTest(LiveServerTestCase):
 
     def test_multiple_users_can_start_lists_at_different_urls(self):
         self.browser.get(self.live_server_url)
+
         inputbox = self.browser.find_element_by_id('id_new_item')
         inputbox.send_keys('Buy peacock feathers')
         inputbox.send_keys(Keys.ENTER)
+        time.sleep(0.5)
+
         self.wait_for_row_in_list_table('1: Buy peacock feathers')
         list_url = self.browser.current_url
         self.assertRegex(list_url, '/lists/.+')
@@ -71,8 +74,11 @@ class NewVisitorTest(LiveServerTestCase):
         inputbox = self.browser.find_element_by_id('id_new_item')
         inputbox.send_keys('Buy milk')
         inputbox.send_keys(Keys.ENTER)
+        time.sleep(0.5)
+
         self.wait_for_row_in_list_table('1: Buy milk')
         other_list_url = self.browser.current_url
+        tr_text = self.browser.find_element_by_tag_name('tr').text
         self.assertRegex(other_list_url, '/lists/.+')
-        self.assertIn('Buy milk', page_text)
+        self.assertIn('Buy milk', tr_text)
         #self.fail('Finish the test!')
