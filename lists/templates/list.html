@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
 
 {% block header_text %}
@@ -12,7 +12,7 @@
 
 
 {% block table %}
-    <table id='id_list_table'>
+    <table id="id_list_table" class="table">
         {% for item in list.item_set.all %}
             <tr><td>{{ forloop.counter }}: {{ item.text }}</td></tr>
         {% endfor %}
