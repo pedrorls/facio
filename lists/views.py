@@ -23,8 +23,14 @@ def new_list(request):
 
 def view_list(request, list_id):
     lst = List.objects.get(id=list_id)
+    error = None
     if request.method == 'POST':
-        item_text = request.POST['item_text']
-        Item.objects.create(text=item_text, list=lst)
-        return redirect(f'/lists/{lst.id}/')
-    return render(request, 'list.html', {'list': lst})
+        try:
+            item_text = request.POST['item_text']
+            item = Item.objects.create(text=item_text, list=lst)
+            item.full_clean()
+            item.save()
+            return redirect(f'/lists/{lst.id}/')
+        except ValidationError:
+            error = 'You cannot have an empty list item'
+    return render(request, 'list.html', {'list': lst, 'error': error})
