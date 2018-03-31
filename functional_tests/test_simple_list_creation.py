@@ -55,4 +55,3 @@ class NewVisitorTest(FunctionalTest):
         tr_text = self.browser.find_element_by_tag_name('tr').text
         self.assertRegex(other_list_url, '/lists/.+')
         self.assertIn('Buy milk', tr_text)
-
