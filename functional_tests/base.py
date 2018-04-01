@@ -42,11 +42,14 @@ class FunctionalTest(StaticLiveServerTestCase):
                     raise e
                 time.sleep(0.5)
 
-    def inset_list_item(self, txt=None):
+    def get_item_input_box(self):
+        return self.browser.find_element_by_id('id_text')
+
+    def insert_list_item(self, txt=None):
         if txt:
-            self.browser.find_element_by_id('id_new_item').send_keys(txt)
+            self.browser.find_element_by_id('id_text').send_keys(txt)
             self.browser.find_element_by_id(
-                'id_new_item').send_keys(Keys.ENTER)
+                'id_text').send_keys(Keys.ENTER)
         else:
             self.browser.find_element_by_id(
-                'id_new_item').send_keys(Keys.ENTER)
+                'id_text').send_keys(Keys.ENTER)
