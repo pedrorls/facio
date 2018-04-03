@@ -1,7 +1,12 @@
-var initialize = function () {
+window.superlists = {};
+
+window.superlists.initialize = function () {
     $('input[name="text"]').on('keypress', function () {
         $('.has-danger').hide();
     });
 };
 
-initialize();
+
+$(document).ready(function(){
+    window.superlists.initialize();
+});
