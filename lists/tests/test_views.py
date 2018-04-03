@@ -51,6 +51,12 @@ class ListViewTest(TestCase):
         self.assertNotContains(response, 'Another item 1')
         self.assertNotContains(response, 'Another item 2')
 
+    def test_display_item_form(self):
+        lst = List.objects.create()
+        response = self.client.get(f'/lists/{lst.id}/')
+        self.assertIsInstance(response.context['form'], ExistingListItemForm)
+        self.assertContains(response, 'name="text"')
+
     def test_passes_correct_list_to_template(self):
         other_lst = List.objects.create()
         correct_lst = List.objects.create()
@@ -94,13 +100,12 @@ class ListViewTest(TestCase):
 
     def test_for_invalid_input_passes_form_to_template(self):
         response = self.post_invalid_input()
-        self.assertIsInstance(response.context['form'], ItemForm)
+        self.assertIsInstance(response.context['form'], ExistingListItemForm)
 
     def test_for_invalid_input_shows_error_on_page(self):
         response = self.post_invalid_input()
         self.assertContains(response, EMPTY_ITEM_ERROR)
 
-    @skip
     def test_duplicate_item_validation_errors_end_up_on_lists_page(self):
         lst = List.objects.create()
         item = Item.objects.create(text='text', list=lst)
@@ -108,8 +113,7 @@ class ListViewTest(TestCase):
             f'/lists/{lst.id}/',
             data={'text': 'text'}
         )
-        expected_error = 'You have already got this in your list'
-        self.assertContains(response, expected_error)
+        self.assertContains(response, DUPLICATED_ITEM_ERROR)
         self.assertTemplateUsed(response, 'list.html')
         self.assertEqual(Item.objects.count(), 1)
 
