@@ -45,6 +45,7 @@ THIRD_PART_APPS = (
 
 LOCAL_APPS = (
     'lists',
+    'accounts',
 )
 
 INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRD_PART_APPS
@@ -93,6 +94,10 @@ DATABASES = {
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
+AUTH_USER_MODEL = 'accounts.ListUser'
+AUTHENTICATION_BACKENDS = [
+    'accounts.authentication.PasswordlessAuthenticationBackend',
+]
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -134,10 +139,18 @@ STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, '../static'))
 # Django nose declaration
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 NOSE_ARGS = [
-    #'--with-coverage',
+    # '--with-coverage',
     '--cover-inclusive',
     '--cover-erase',
     '--cover-package=lists',
     '--verbosity=3',
     '--rednose',
 ]
+
+
+# Email settings
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'pedro.rls93@gmail.com'
+EMAIL_HOST_PASSWORD = 'uwfyqttmmqxquvik'
+EMAIL_PORT = 587
+EMAIL_USER_TLS = True
