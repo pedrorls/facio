@@ -41,5 +41,3 @@ class GetUserTest(TestCase):
         self.assertIsNone(
             PasswordlessAuthBackend.get_user(self, 'edith@example.com')
         )
-
-
