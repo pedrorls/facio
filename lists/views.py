@@ -2,7 +2,11 @@ from django.shortcuts import render, redirect
 from django.core.exceptions import ValidationError
 from django.contrib.auth import get_user_model
 from .models import Item, List
-from .forms import ItemForm, ExistingListItemForm
+from .forms import (
+    ItemForm,
+    ExistingListItemForm,
+    NewListForm,
+)
 User = get_user_model()
 
 
@@ -11,15 +15,11 @@ def home_page(request):
 
 
 def new_list(request):
-    form = ItemForm(data=request.POST)
+    form = NewListForm(data=request.POST)
     if form.is_valid():
-        lst = List()
-        lst.owner = request.user
-        lst.save()
-        form.save(for_list=lst)
+        lst = form.save(owner=request.user)
         return redirect(lst)
-    else:
-        return render(request, 'home.html', {'form': form})
+    return render(request, 'home.html', {'form': form})
 
 
 def view_list(request, list_id):
