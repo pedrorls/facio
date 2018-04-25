@@ -145,7 +145,7 @@ STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, '../static'))
 # Django nose declaration
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 NOSE_ARGS = [
-    '--with-coverage',
+    # '--with-coverage',
     '--cover-inclusive',
     '--cover-erase',
     '--cover-package=lists',
